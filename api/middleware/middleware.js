@@ -34,7 +34,7 @@ async function checkUsernameTaken(req, res, next) {
     //Exists Username & Password
 const checkUsernamePasswordExist = async (req, res, next) => {
   try {
-    const [user] = await findBy({ username: req.body.username, password: req.body.password })
+    const user = req.body
     if(!user.username || !user.password || user.password < 3) {
       next({
         status: 422,

@@ -51,8 +51,24 @@ router.post('/register',
   */
 });
 
-router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+router.post('/login', 
+  md.requireUsernamePassword, 
+  md.checkUsernamePasswordExist, 
+  (req, res, next) => {
+    if (bcrypt.compareSync(req.body.password, req.user.password)) {
+      const token = tokenBuilder(req.user);
+           
+      res.status(200).json({
+        message: `welcome, ${req.user.username}`,
+        token,
+      });
+    } else {
+      next({
+        status: 401,
+        message: 'invalid credentials' 
+      });
+    }
+
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
