@@ -34,10 +34,10 @@ async function checkUsernameTaken(req, res, next) {
     //Exists Username & Password
 const checkUsernamePasswordExist = async (req, res, next) => {
   try {
-    const user = req.body
-    if(!user.username || !user.password || user.password < 3) {
+    const [user] = await findBy({ username: req.body.username })
+    if(!user || !user.password) {
       next({
-        status: 422,
+        status: 401,
         message: 'invalid credentials'
       })
     } else {

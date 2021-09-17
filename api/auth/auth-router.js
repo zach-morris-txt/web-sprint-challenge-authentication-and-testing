@@ -12,14 +12,10 @@ router.post('/register',
   md.requireUsernamePassword, 
   md.checkUsernameTaken, 
   (req, res, next) => {
-    let user = req.body;
-    //Bcypting Password
-    const rounds = process.env.BCRYPT_ROUNDS || 8; // 2 ^ 8
-    const hash = bcrypt.hashSync(user.password, rounds);
-    //Never Save As Plain-Text
-    user.password = hash
-  
-    Users.add(user)
+    const { username, password } = req.body
+    const hash = bcrypt.hashSync(password, 8);
+
+    Users.add({ username, password: hash })
       .then(saved => {
         res.status(201).json(saved);
       })
