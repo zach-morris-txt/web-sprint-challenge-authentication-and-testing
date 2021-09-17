@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+
+//Ednpoints
 router.post('/register', (req, res) => {
   res.end('implement register, please!');
   /*
