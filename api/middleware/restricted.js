@@ -1,6 +1,6 @@
 //Imports
 const jwt = require('jsonwebtoken')
-const { JWT_SECRET } = require("../../config/secrets")
+const { SECRET } = require("../../config/secrets")
 
 
 //Exports; Exposing
@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
   
     jwt.verify(
       token, 
-      JWT_SECRET, 
+      SECRET, 
       (err, decodedToken) => {
         if (err) {
           next({

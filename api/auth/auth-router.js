@@ -20,6 +20,7 @@ router.post('/register',
         res.status(201).json(saved);
       })
       .catch(next);
+
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -64,7 +65,7 @@ router.post('/login',
         message: 'invalid credentials' 
       });
     }
-
+    
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
