@@ -1,6 +1,32 @@
+//Imports
+const jwt = require('jsonwebtoken')
+const { JWT_SECRET } = require("../../config/secrets")
+
+
+//Exports; Exposing
 module.exports = (req, res, next) => {
-  next();
-  /*
+    const token = req.headers.authorization
+  
+    if(!token) return next({
+        status: 401,
+        message: 'token required'
+    }) 
+  
+    jwt.verify(
+      token, 
+      JWT_SECRET, 
+      (err, decodedToken) => {
+        if (err) {
+          next({
+            status: 401,
+            message: 'token invalid'
+          })
+        } else {
+          req.decodedToken = decodedToken
+          next()
+        }
+    })
+    /*
     IMPLEMENT
 
     1- On valid token in the Authorization header, call next.
